@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions/actionCreators';
+import Photo from './Photo';
 
-export default class Single extends Component {
+class Single extends Component {
     render() {
+        console.log(this.props); // use match.params.postId
+
         return (
             <div className="single-photo">
                 Single
@@ -9,3 +15,16 @@ export default class Single extends Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        posts: state.posts,
+        comments: state.comments
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(actionCreators, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Single);
