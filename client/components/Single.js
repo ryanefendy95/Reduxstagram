@@ -3,14 +3,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/actionCreators';
 import Photo from './Photo';
+import Comment from './Comments';
 
 class Single extends Component {
     render() {
-        console.log(this.props); // use match.params.postId
+        const { postId } = this.props.match.params;
+        const i = this.props.posts.findIndex(post => post.code === postId);
+        const post = this.props.posts[i];
+        const postComments = this.props.comments[postId] || [];
 
         return (
             <div className="single-photo">
-                Single
+                <Photo i={i} post={post} {...this.props} ></Photo>
+                <Comment postComments={postComments} />
             </div>
         )
     }
